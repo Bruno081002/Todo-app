@@ -14,9 +14,9 @@ export default function Header({title}: HeaderProps) {
 	const insets = useSafeAreaInsets();
 	return (
 		<View  style={{paddingTop: insets.top}}{...{/*style={{paddingTop: insets.top, position: "absolute", top: 0}} */}} className=" w-full pb-2 flex-row justify-between px-6 bg-background bg-gray-200 shadow-2xl"> 
-			<View className="flex-row items-center flex-1 px-6 h-16 rounded-md">	
+			<View className="flex-row items-center flex-1 px-1 h-16 rounded-md">	
 				<TouchableOpacity onPress={handleBackPress} className="mr-4">
-					<Text className="text-black-500 text-2xl">{title}</Text>
+					<Text className="text-black-500 text-3xl font-black">{title}</Text>
 				</TouchableOpacity>
 			</View>		
 		</View>
