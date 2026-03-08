@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/Header";
-import AddTaskManager from "@/components/AddTaskManager";
+import AddTaskManager from "./AddTaskManager";
 
 export default function Index() {
   return (

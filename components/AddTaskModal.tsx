@@ -28,6 +28,8 @@ export default function AddTaskModal({ visible, onClose }: AddTaskModalProps) {
 
   const handleSave = () => {
     if (!title.trim()) return;
+    if (!description.trim()) return;
+    if (!priority.trim()) return;
     const finalDate =
       Platform.OS === "web" ? dueDateWeb : dueDate.toLocaleDateString("pt-PT");
     console.log({ title, description, date: finalDate, priority });
@@ -38,6 +40,13 @@ export default function AddTaskModal({ visible, onClose }: AddTaskModalProps) {
     setPriority("");
     setShow(false);
   };
+
+  const isComplete =
+    title.trim() !== "" &&
+    description.trim() !== "" &&
+    priority.trim() !== "" &&
+    (Platform.OS === "web" ? dueDateWeb.trim() !== "" : true);
+
   return (
     <Modal visible={visible} transparent animationType="fade">
       <TouchableWithoutFeedback onPress={onClose}>
@@ -106,7 +115,7 @@ export default function AddTaskModal({ visible, onClose }: AddTaskModalProps) {
               </Text>
               <TextInput
                 value={description}
-                onChange={() => setDescription}
+                onChangeText={setDescription}
                 placeholder="Descrição"
                 placeholderTextColor="#9ca3af"
                 multiline
@@ -138,12 +147,17 @@ export default function AddTaskModal({ visible, onClose }: AddTaskModalProps) {
                 ))}
               </View>
               <View className=" flex-row gap-3 mb-2">
-                <TouchableOpacity onPress={onClose} className=" flex-1 border-2 rounded-xl py-3 border-gray-200 items-center ">
+                <TouchableOpacity
+                  onPress={onClose}
+                  className=" flex-1 border-2 rounded-xl py-3 border-gray-200 items-center "
+                >
                   <Text>Cancelar</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                   onPress={handleSave}
-                  className={` flex-1 rounded-xl items-center py-3 ${title.trim() ? "bg-blue-500" : "bg-gray-200"}`}
+                  disabled={!isComplete}
+                  className={` flex-1 rounded-xl items-center py-3 ${isComplete ? "bg-blue-500" : "bg-gray-200"}`}
                 >
                   <Text>Guardar</Text>
                 </TouchableOpacity>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, View } from "react-native";
-import AddButton from "./AddButton";
-import AddTaskModal from "./AddTaskModal";
+import AddButton from "@/components/AddButton";
+import AddTaskModal from "@/components/AddTaskModal";
 
 
 export default function AddTaskManager() {
