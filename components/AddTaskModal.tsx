@@ -8,17 +8,19 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { Task } from "@/types";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 type AddTaskModalProps = {
   visible: boolean;
   onClose: () => void;
+  onsave: (task: Task) => void;
 };
 
 const PRIORITIES = ["Low", "Medium", "High"];
 
-export default function AddTaskModal({ visible, onClose }: AddTaskModalProps) {
+export default function AddTaskModal({ visible, onClose, onsave }: AddTaskModalProps) {
   const [title, setTitle] = useState("");
   const [dueDate, setDate] = useState(new Date());
   const [dueDateWeb, setDateWeb] = useState("");
@@ -32,7 +34,7 @@ export default function AddTaskModal({ visible, onClose }: AddTaskModalProps) {
     if (!priority.trim()) return;
     const finalDate =
       Platform.OS === "web" ? dueDateWeb : dueDate.toLocaleDateString("pt-PT");
-    console.log({ title, description, date: finalDate, priority });
+    onsave({ id: Date.now().toString(), title, description, date: finalDate, priority: priority as "Low" | "Medium" | "High", completed: false });
     onClose();
     setTitle("");
     setDate(new Date());
